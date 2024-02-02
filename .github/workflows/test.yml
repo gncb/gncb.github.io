@@ -11,6 +11,7 @@ jobs:
           script: |
             const page = await browser.newPage();
             await page.goto('https://www.jiritsu-red.jp/contact/');
+            await new Promise(resolve => setTimeout(resolve, 20000));
             const title = await page.$eval('title', el => el.textContent);
             const option = await page.evaluate(() => document.querySelector("select#gakunen > option"));
             return option.text;
