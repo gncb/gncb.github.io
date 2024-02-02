@@ -1,6 +1,6 @@
 name: learn-github-actions
 on: 
-  push
+  [push]
   schedule:
     - cron: '0 0 * * *'
 jobs:
