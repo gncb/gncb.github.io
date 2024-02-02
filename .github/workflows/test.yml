@@ -15,6 +15,5 @@ jobs:
             const gradeOptionNodes = await page.evaluate(() => Array.from(document.querySelectorAll("select#gakunen > option")));
             gradeOptionNodes.shift();
             const list_grade = gradeOptionNodes.map(option => option.text);
-      
-            return list_grade;
+            return list_grade.join(",");
       - run: echo '${{ steps.get-title.outputs.result }}'
