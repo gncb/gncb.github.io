@@ -11,7 +11,7 @@ jobs:
           script: |
             const page = await browser.newPage();
             await page.goto('https://www.jiritsu-red.jp/contact/');
-            const title = await page.$eval("select#gakunen > option", el => el.textContent);
+            const grades = await page.$$eval("select#gakunen > option", options => options.map(option => option.textContent));
             const option = await page.evaluate(() => document.querySelector("select#gakunen > option"));
-            return title;
+            return grades.join(",");
       - run: echo '${{ steps.get-title.outputs.result }}'
