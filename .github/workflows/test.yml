@@ -12,9 +12,7 @@ jobs:
             const page = await browser.newPage();
             await page.goto('https://www.jiritsu-red.jp/contact/');
             const title = await page.$eval('title', el => el.textContent);
-            const gradeOptionNodes = await page.evaluate(() =>
-              Array.from(document.querySelectorAll("select#gakunen > option"));
-            );
+            const gradeOptionNodes = await page.evaluate(() => Array.from(document.querySelectorAll("select#gakunen > option")));
             gradeOptionNodes.shift();
             const list_grade = gradeOptionNodes.map(option => option.text);
       
