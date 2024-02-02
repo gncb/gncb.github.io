@@ -1,17 +1,26 @@
 name: learn-github-actions
-on: [push]
+on: 
+  push
+  schedule:
+    - cron: '0 0 * * *'
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "this is a pen"
-      - id: get-title
+      - id: get-grade-options
         uses: maku693/action-puppeteer-script@v0
         with:
           script: |
             const page = await browser.newPage();
             await page.goto('https://www.jiritsu-red.jp/contact/');
-            const gradeOptionNodes = await page.$$eval("select#gakunen > option", options => options.map(option => option.textContent));
+            const gradeOptionNodes = await page.$$eval("select#gakunen > option", options => {
+               options.map(option => option.textContent)
+            });
             gradeOptionNodes.shift();
             return gradeOptionNodes
-      - run: echo '${{ steps.get-title.outputs.result }}'
+      - run: echo '${{ steps.get-grade-options.outputs.result }}'
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./
