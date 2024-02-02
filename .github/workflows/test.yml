@@ -14,6 +14,7 @@ jobs:
             const title = await page.$eval('title', el => el.textContent);
             const gradeOptionNodes = await page.evaluate(() => Array.from(document.querySelectorAll("select#gakunen > option")));
             gradeOptionNodes.shift();
+            const firstitem = gradeOptionNodes[0].text;
             const list_grade = gradeOptionNodes.map(option => option.text);
-            return list_grade.join(",");
+            return firstitem;
       - run: echo '${{ steps.get-title.outputs.result }}'
