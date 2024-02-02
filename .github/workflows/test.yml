@@ -10,7 +10,7 @@ jobs:
         with:
           script: |
             const page = await browser.newPage();
-            await page.goto('https://example.com');
+            await page.goto('https://www.jiritsu-red.jp/contact/');
             const title = await page.$eval('title', el => el.textContent);
             return title;
       - run: echo '${{ steps.get-title.outputs.result }}'
