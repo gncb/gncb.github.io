@@ -8,7 +8,7 @@ jobs:
     steps:
       - id: get-grade-options
         uses: maku693/action-puppeteer-script@v0
-        run: node capture.js
+      - run: npm run start
         # with:
         #   script: |
         #     const page = await browser.newPage();
@@ -16,7 +16,7 @@ jobs:
         #     const gradeOptionNodes = await page.$$eval("select#gakunen > option", options => options.map(option => option.textContent));
         #     gradeOptionNodes.shift();
         #     return gradeOptionNodes
-      - run: echo '${{ steps.get-grade-options.outputs.result }}'
+      # - run: echo '${{ steps.get-grade-options.outputs.result }}'
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
