@@ -1,1 +1,0 @@
-var data = [{"name":"test","updatedAt":"2020-12-10"},{"name":"test2","updatedAt":"2020-12-11"},{"name":"test3","updatedAt":"2020-12-12"},{"name":"test4","updatedAt":"2020-12-14"},{"name":"test5","updatedAt":"2020-12-19"}];
