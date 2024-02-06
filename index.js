@@ -1,6 +1,7 @@
 const fs = require('fs');
 const OUTPUT_DIR = `dist/`;
 
+console.log("RUN SCRIPT!!")
 
 async function main() {
 
