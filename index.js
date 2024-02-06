@@ -23,6 +23,8 @@ async function main() {
     }
     ]
 
+    console.log(checklist)
+
     fs.writeFileSync(
 		OUTPUT_DIR+"test.js", 
 		`var data = ${JSON.stringify(checklist)};`
