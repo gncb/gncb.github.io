@@ -3,6 +3,9 @@ const OUTPUT_DIR = `dist/`;
 
 console.log("RUN SCRIPT!!")
 
+const page = await browser.newPage();
+await page.goto('https://www.jiritsu-red.jp/contact/');
+
 async function main() {
 
     const checklist = [{

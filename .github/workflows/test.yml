@@ -12,7 +12,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: check
+      - uses: maku693/action-puppeteer-script@v0
+      - name: create
         run: |
           npm run start
 
