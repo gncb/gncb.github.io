@@ -5,9 +5,6 @@ console.log("RUN SCRIPT!!")
 
 console.log("${{ steps.get-grade-options.outputs.result }")
 
-const page = await browser.newPage();
-await page.goto('https://www.jiritsu-red.jp/contact/');
-
 async function main() {
 
     const checklist = [{
