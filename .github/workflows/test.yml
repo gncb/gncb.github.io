@@ -3,12 +3,26 @@ on: [push]
   # schedule:
   #   - cron: '0 0 * * *'
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - id: get-grade-options
-        uses: maku693/action-puppeteer-script@v0
-      - run: npm run start
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: check
+        run: |
+          npm install
+          npm run start
+
+  # check-bats-version:
+  #   runs-on: ubuntu-latest
+  #   steps:
+      # - id: get-grade-options
+        # uses: maku693/action-puppeteer-script@v0
+      # - run: npm run start
         # with:
         #   script: |
         #     const page = await browser.newPage();
