@@ -17,10 +17,10 @@ jobs:
         with:
           script: |
             const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const gradeOptionNodes=await page.$$eval("select#gakunen > option",options=>options.map(option=>option.textContent));gradeOptionNodes.shift();return gradeOptionNodes
-      - run: echo '${{ steps.get-grade-options.outputs.result }}'
-      - name: create
-        run: |
-          npm run start
+      - run: echo '${{ steps.get-grade-options.outputs.result }}' > testfile.js
+      # - name: create
+      #   run: |
+      #     npm run start
 
   # check-bats-version:
   #   runs-on: ubuntu-latest
