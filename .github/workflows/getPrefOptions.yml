@@ -1,7 +1,7 @@
 name: get-pref-options
 on:
   schedule:
-    - cron: '30 * * * *'
+    - cron: '0 0 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +11,7 @@ jobs:
         with:
           script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const prefOptionNodes=await page.$$eval("select#schoolprefecture > optgroup > option",options=>options.map(option=>option.textContent));prefOptionNodes.shift();return prefOptionNodes
       - run: echo '${{ steps.get-pref-options.outputs.result }}'
-      - run: echo 'var prefOptions = ${{ steps.get-pref-options.outputs.result }}' > prefOptions.js
+      - run: echo 'var prefOptions = ${{ steps.get-pref-options.outputs.result }}' > sprix/prefOptions.js
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
