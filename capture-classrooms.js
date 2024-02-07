@@ -60,14 +60,16 @@ const list_pref = await page.$$eval(
 );
 list_pref.shift();
 
-let master = {};
-let master_flat = [];
+// let master = {};
+// let master_flat = [];
+
+let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
     // await send_selected_text(document, "#schoolprefecture", list_pref[i]);
     // await wait_switched_options(document,"#schoolcity");
     // const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
-    const cityOptions = await page.$$eval(
+    cityOptions = await page.$$eval(
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
