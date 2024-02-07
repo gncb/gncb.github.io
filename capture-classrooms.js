@@ -78,7 +78,8 @@ for ( i = 0; i < list_pref.length; i++) {
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
-    master[list_pref[i]] = cityOptions.shift();
+    console.log(cityOptions);
+    master[list_pref[i]] = cityOptions;
 }
 
 return master;
