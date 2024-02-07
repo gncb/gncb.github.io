@@ -1,56 +1,3 @@
-function send_selected_text(doc, selector, val) {
-    const tar = doc.querySelector(selector);
-    if (tar) {
-      setTimeout(() => {
-        Array.from(tar.options).forEach(e => {
-          if (e.textContent === val) {
-            tar.selectedIndex = e.index;
-            tar.dispatchEvent(new Event("change", { bubbles: true }));
-          }
-        });
-      }, 100);
-    }
-}
-
-// function wait_switched_options(doc, selector) {
-//     new Promise(resolve => {
-//     const tar = doc.querySelector(selector);
-//     const formObserver = new MutationObserver(records => {
-//       formObserver.disconnect();
-//       resolve();
-//     })
-//     formObserver.observe(tar, {
-//       childList: true,
-//       subtree: true
-//     })
-// })}
-
-// function _waitForElement(doc, selector, delay = 1000, tries = 10) {
-//     const element = doc.querySelector(selector);
-
-//     if (!window[`__${selector}`]) {
-//       window[`__${selector}`] = 0;
-//     }
-
-//     function _search() {
-//       return new Promise((resolve) => {
-//         window[`__${selector}`]++;
-//         setTimeout(resolve, delay);
-//       });
-//     }
-
-//     if (element === null) {
-//       if (window[`__${selector}`] >= tries) {
-//         window[`__${selector}`] = 0;
-//         return Promise.reject(`__${selector} is not found`);
-//       }
-
-//       return _search().then(() => _waitForElement(doc, selector));
-//     } else {
-//       return Promise.resolve(element);
-//     }
-// };
-
 const page = await browser.newPage();
 await page.goto('https://www.jiritsu-red.jp/contact/');
 
@@ -101,15 +48,13 @@ for ( i = 0; i < list_pref.length; i++) {
         // 教室のオプションを取得
         classroomOptions = await page.$$eval(
             "select#classroom > option", 
-            options => options.map(option => { id: option.value; name: option.textContent })
+            options => options.map(option => option.textContent)
         );
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
-        
-        console.log(master);
 
     }
 }
-
+console.log(master);
 return master;
 
 
