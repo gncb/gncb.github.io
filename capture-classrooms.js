@@ -101,7 +101,7 @@ for ( i = 0; i < list_pref.length; i++) {
         // 教室のオプションを取得
         classroomOptions = await page.$$eval(
             "select#classroom > option", 
-            options => options.map(option => option.textContent)
+            options => options.map(option => { id: option.value; name: option.textContent })
         );
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
         
