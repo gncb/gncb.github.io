@@ -1,1 +1,1 @@
-var prefOptions = []
+var classroomOptions = ["クアラルンプール市"]
