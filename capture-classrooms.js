@@ -105,7 +105,7 @@ for ( i = 0; i < list_pref.length; i++) {
         );
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
         
-        console.log(master[list_pref[i]]);
+        console.log(master);
 
     }
 }
