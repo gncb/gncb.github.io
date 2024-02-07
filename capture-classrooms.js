@@ -70,9 +70,9 @@ for ( i = 0; i < list_pref.length; i++) {
         "#schoolprefecture",
         selectbox => {
             Array.from(selectbox.options).forEach(e => {
-                if (e.textContent === val) {
-                    tar.selectedIndex = e.index;
-                    tar.dispatchEvent(new Event("change", { bubbles: true }));
+                if (e.textContent === list_pref[i]) {
+                    selectbox.selectedIndex = e.index;
+                    selectbox.dispatchEvent(new Event("change", { bubbles: true }));
                 }
             });
         }
