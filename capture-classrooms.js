@@ -64,21 +64,49 @@ let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
 
+    // 都道府県を順番に選択
     await page.evaluate((list_pref,i) => {
-        const selectBox = document.getElementById("schoolprefecture");
+        const selectPrefBox = document.getElementById("schoolprefecture");
         Array.from(selectBox.options).forEach(e => {
             if (e.textContent === list_pref[i]) {
-                selectBox.selectedIndex = e.index;
-                selectBox.dispatchEvent(new Event("change", { bubbles: true }));
+                selectPrefBox.selectedIndex = e.index;
+                selectPrefBox.dispatchEvent(new Event("change", { bubbles: true }));
             }
         });
     },list_pref,i);
+
+     // 市区町村のオプションを取得
     cityOptions = await page.$$eval(
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
-    console.log(cityOptions);
-    master[list_pref[i]] = cityOptions;
+    master[list_pref[i]] = cityOptions.shift();
+
+
+
+    for ( j = 0; j < master[list_pref[i]].length; j++) {
+
+        // 市区町村を順番に選択
+        const list_city = master[list_pref[i]]
+
+        await page.evaluate((list_city,j) => {
+            const selectCityBox = document.getElementById("schoolcity");
+            Array.from(selectBox.options).forEach(e => {
+                if (e.textContent === list_city[j]) {
+                    selectCityBox.selectedIndex = e.index;
+                    selectCityBox.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+            });
+        },list_city,j);
+
+        // 教室のオプションを取得
+        classroomOptions = await page.$$eval(
+            "select#classroom > option", 
+            options => options.map(option => option.textContent)
+        );
+        master[list_pref[i][j]] = classroomOptions.shift();
+
+    }
 }
 
 return master;
