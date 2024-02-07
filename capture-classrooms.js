@@ -12,44 +12,44 @@ function send_selected_text(doc, selector, val) {
     }
 }
 
-function wait_switched_options(doc, selector) {
-    new Promise(resolve => {
-    const tar = doc.querySelector(selector);
-    const formObserver = new MutationObserver(records => {
-      formObserver.disconnect();
-      resolve();
-    })
-    formObserver.observe(tar, {
-      childList: true,
-      subtree: true
-    })
-})}
+// function wait_switched_options(doc, selector) {
+//     new Promise(resolve => {
+//     const tar = doc.querySelector(selector);
+//     const formObserver = new MutationObserver(records => {
+//       formObserver.disconnect();
+//       resolve();
+//     })
+//     formObserver.observe(tar, {
+//       childList: true,
+//       subtree: true
+//     })
+// })}
 
-function _waitForElement(doc, selector, delay = 1000, tries = 10) {
-    const element = doc.querySelector(selector);
+// function _waitForElement(doc, selector, delay = 1000, tries = 10) {
+//     const element = doc.querySelector(selector);
 
-    if (!window[`__${selector}`]) {
-      window[`__${selector}`] = 0;
-    }
+//     if (!window[`__${selector}`]) {
+//       window[`__${selector}`] = 0;
+//     }
 
-    function _search() {
-      return new Promise((resolve) => {
-        window[`__${selector}`]++;
-        setTimeout(resolve, delay);
-      });
-    }
+//     function _search() {
+//       return new Promise((resolve) => {
+//         window[`__${selector}`]++;
+//         setTimeout(resolve, delay);
+//       });
+//     }
 
-    if (element === null) {
-      if (window[`__${selector}`] >= tries) {
-        window[`__${selector}`] = 0;
-        return Promise.reject(`__${selector} is not found`);
-      }
+//     if (element === null) {
+//       if (window[`__${selector}`] >= tries) {
+//         window[`__${selector}`] = 0;
+//         return Promise.reject(`__${selector} is not found`);
+//       }
 
-      return _search().then(() => _waitForElement(doc, selector));
-    } else {
-      return Promise.resolve(element);
-    }
-};
+//       return _search().then(() => _waitForElement(doc, selector));
+//     } else {
+//       return Promise.resolve(element);
+//     }
+// };
 
 const page = await browser.newPage();
 await page.goto('https://www.jiritsu-red.jp/contact/');
@@ -66,6 +66,17 @@ list_pref.shift();
 let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
+    await page.$eval(
+        "#schoolprefecture",
+        selectbox => {
+            Array.from(selectbox.options).forEach(e => {
+                if (e.textContent === val) {
+                    tar.selectedIndex = e.index;
+                    tar.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+            });
+        }
+    );
     // await send_selected_text(document, "#schoolprefecture", list_pref[i]);
     // await wait_switched_options(document,"#schoolcity");
     // const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
