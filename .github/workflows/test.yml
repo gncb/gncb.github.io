@@ -18,10 +18,10 @@ jobs:
           script: |
             const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const prefOptionNodes=await page.$$eval("select#schoolprefecture > optgroup > option",options=>options.map(option=>option.textContent));prefOptionNodes.shift();return prefOptionNodes
       - run: echo '${{ steps.get-grade-options.outputs.result }}'
-      - run: echo 'var grades = ${{ steps.get-grade-options.outputs.result }}' > sample0207-02.js
+      - run: echo 'var grades = ${{ steps.get-grade-options.outputs.result }}' > sample0207-03.js
       - name: Deploy
-        on: ['main']
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
