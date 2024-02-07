@@ -1,29 +1,29 @@
-name: learn-github-actions
-on: [push]
-  # schedule:
-  #   - cron: '0 0 * * *'
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - id: get-grade-options
-        uses: maku693/action-puppeteer-script@v0
-        with:
-          script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const gradeOptionNodes=await page.$$eval("select#gakunen > option",options=>options.map(option=>option.textContent));gradeOptionNodes.shift();return gradeOptionNodes
-      - run: echo '${{ steps.get-grade-options.outputs.result }}'
-      - run: echo 'var gradeOptions = ${{ steps.get-grade-options.outputs.result }}' > gradeOptions.js
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+# name: learn-github-actions
+# on: [push]
+#   # schedule:
+#   #   - cron: '0 0 * * *'
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 1
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 14.x
+#       - id: get-grade-options
+#         uses: maku693/action-puppeteer-script@v0
+#         with:
+#           script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const gradeOptionNodes=await page.$$eval("select#gakunen > option",options=>options.map(option=>option.textContent));gradeOptionNodes.shift();return gradeOptionNodes
+#       - run: echo '${{ steps.get-grade-options.outputs.result }}'
+#       - run: echo 'var gradeOptions = ${{ steps.get-grade-options.outputs.result }}' > gradeOptions.js
+#       - name: Deploy
+#         uses: peaceiris/actions-gh-pages@v3
+#         if: ${{ github.ref == 'refs/heads/main' }}
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./
 
 
 
