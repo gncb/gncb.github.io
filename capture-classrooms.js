@@ -83,9 +83,9 @@ for ( i = 0; i < list_pref.length; i++) {
     );
     master[list_pref[i]] = cityOptions.shift();
 
-    const list_city = master[list_pref[i]]
+    // const list_city = master[list_pref[i]]
 
-    console.log(list_city)
+    console.log(master[list_pref[i]])
 
     // for ( k = 0; k < list_city.length; k++) {
 
