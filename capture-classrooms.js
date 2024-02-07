@@ -81,11 +81,12 @@ for ( i = 0; i < list_pref.length; i++) {
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
-    master[list_pref[i]] = cityOptions;
+    const city_list = cityOptions.shift();
+    master[list_pref[i]] = city_list;
 
     const list_city = master[list_pref[i]];
 
-    console.log(list_city.shift());
+    console.log(list_city);
 
     // for ( k = 0; k < list_city.length; k++) {
 
