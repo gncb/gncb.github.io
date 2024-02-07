@@ -1,6 +1,5 @@
 name: get-grade-options
-on:
-  schedule:
+on: schedule:
     - cron: '30 * * * *'
 jobs:
   build:
