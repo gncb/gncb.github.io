@@ -66,17 +66,16 @@ list_pref.shift();
 let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
-    await page.$eval(
-        "#schoolprefecture",
-        selectbox => {
-            Array.from(selectbox.options).forEach(e => {
-                if (e.textContent === list_pref[i]) {
-                    selectbox.selectedIndex = e.index;
-                    selectbox.dispatchEvent(new Event("change", { bubbles: true }));
-                }
-            });
-        }
-    );
+    await page.evaluate((list_pref) => {
+        const selectBox = document.getElementById("schoolprefecture");
+        Array.from(selectBox.options).forEach(e => {
+            if (e.textContent === list_pref[i]) {
+                selectBox.selectedIndex = e.index;
+                selectBox.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+        });
+    },list_pref);
+    
     // await send_selected_text(document, "#schoolprefecture", list_pref[i]);
     // await wait_switched_options(document,"#schoolcity");
     // const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
