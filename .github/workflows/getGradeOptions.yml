@@ -1,8 +1,7 @@
 name: get-grade-options
 on:
   schedule:
-    # 定期実行する時間・・・①
-    - cron: '0 22 * * *'
+    - cron: '30 * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
