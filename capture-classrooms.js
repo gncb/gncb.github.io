@@ -60,13 +60,10 @@ const list_pref = await page.$$eval(
 );
 list_pref.shift();
 
-// let master = {};
-// let master_flat = [];
-
 let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
-    await page.evaluate((list_pref) => {
+    await page.evaluate((list_pref,i) => {
         const selectBox = document.getElementById("schoolprefecture");
         Array.from(selectBox.options).forEach(e => {
             if (e.textContent === list_pref[i]) {
@@ -74,28 +71,12 @@ for ( i = 0; i < list_pref.length; i++) {
                 selectBox.dispatchEvent(new Event("change", { bubbles: true }));
             }
         });
-    },list_pref);
-    
-    // await send_selected_text(document, "#schoolprefecture", list_pref[i]);
-    // await wait_switched_options(document,"#schoolcity");
-    // const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
+    },list_pref,i);
     cityOptions = await page.$$eval(
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
     cityOptions.shift();
-    // master[list_pref[i]] = cityOptionNodes.map(option => option.text);
-
-    // for ( j = 0; j < master[list_pref[i]].length; j++) {
-    //     // await send_selected_text(document, "#schoolcity", master[list_pref[i]][j]);
-    //     // await wait_switched_options(document,"#classroom");
-    //     const classroomOptionNodes = Array.from(document.querySelectorAll("select#classroom > option"));
-    //     classroomOptionNodes.shift();
-    //     master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
-    //         master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.text });
-    //         return { id: option.value, name: option.text }
-    //     });
-    // }
 }
 
 return cityOptions;
