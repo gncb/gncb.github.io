@@ -79,13 +79,13 @@ for ( i = 0; i < list_pref.length; i++) {
      // 市区町村のオプションを取得
     cityOptions = await page.$$eval(
         "select#schoolcity > option", 
-        options => options.shift().map(option => option.textContent)
+        options => options.map(option => option.textContent)
     );
     master[list_pref[i]] = cityOptions;
 
     const list_city = master[list_pref[i]];
 
-    console.log(list_city);
+    console.log(list_city.shift());
 
     // for ( k = 0; k < list_city.length; k++) {
 
