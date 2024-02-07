@@ -1,5 +1,5 @@
 function send_selected_text(doc, selector, val) {
-    var tar = doc.querySelector(selector);
+    const tar = doc.querySelector(selector);
     if (tar) {
       setTimeout(() => {
         Array.from(tar.options).forEach(e => {
@@ -12,9 +12,10 @@ function send_selected_text(doc, selector, val) {
     }
 }
 
-function wait_switched_options(doc, selector) {new Promise(resolve => {
-    var tar = doc.querySelector(selector);
-    var formObserver = new MutationObserver(records => {
+function wait_switched_options(doc, selector) {
+    new Promise(resolve => {
+    const tar = doc.querySelector(selector);
+    const formObserver = new MutationObserver(records => {
       formObserver.disconnect();
       resolve();
     })
@@ -63,25 +64,29 @@ let master = {};
 let master_flat = [];
 
 for ( i = 0; i < list_pref.length; i++) {
-    await send_selected_text(document, "#schoolprefecture", list_pref[i]);
-    await wait_switched_options(document,"#schoolcity");
-    const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
-    cityOptionNodes.shift();
-    master[list_pref[i]] = cityOptionNodes.map(option => option.text);
+    // await send_selected_text(document, "#schoolprefecture", list_pref[i]);
+    // await wait_switched_options(document,"#schoolcity");
+    // const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
+    const cityOptions = await page.$$eval(
+        "select#schoolcity > option", 
+        options => options.map(option => option.textContent)
+    );
+    cityOptions.shift();
+    // master[list_pref[i]] = cityOptionNodes.map(option => option.text);
 
-    for ( j = 0; j < master[list_pref[i]].length; j++) {
-        await send_selected_text(document, "#schoolcity", master[list_pref[i]][j]);
-        await wait_switched_options(document,"#classroom");
-        const classroomOptionNodes = Array.from(document.querySelectorAll("select#classroom > option"));
-        classroomOptionNodes.shift();
-        master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
-            master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.text });
-            return { id: option.value, name: option.text }
-        });
-    }
+    // for ( j = 0; j < master[list_pref[i]].length; j++) {
+    //     // await send_selected_text(document, "#schoolcity", master[list_pref[i]][j]);
+    //     // await wait_switched_options(document,"#classroom");
+    //     const classroomOptionNodes = Array.from(document.querySelectorAll("select#classroom > option"));
+    //     classroomOptionNodes.shift();
+    //     master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
+    //         master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.text });
+    //         return { id: option.value, name: option.text }
+    //     });
+    // }
 }
 
-return master_flat;
+return cityOptions;
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
