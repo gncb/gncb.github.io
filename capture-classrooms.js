@@ -1,4 +1,4 @@
-var send_selected_text = (doc, selector, val) => {
+function send_selected_text(doc, selector, val) {
     var tar = doc.querySelector(selector);
     if (tar) {
       setTimeout(() => {
@@ -12,17 +12,17 @@ var send_selected_text = (doc, selector, val) => {
     }
 }
 
-var wait_switched_options = (doc, selector) => new Promise(resolve => {
-      var tar = doc.querySelector(selector);
-      var formObserver = new MutationObserver(records => {
-        formObserver.disconnect();
-        resolve();
-      })
-      formObserver.observe(tar, {
-        childList: true,
-        subtree: true
-      })
-});
+function wait_switched_options(doc, selector) {new Promise(resolve => {
+    var tar = doc.querySelector(selector);
+    var formObserver = new MutationObserver(records => {
+      formObserver.disconnect();
+      resolve();
+    })
+    formObserver.observe(tar, {
+      childList: true,
+      subtree: true
+    })
+})}
 
 function _waitForElement(doc, selector, delay = 1000, tries = 10) {
     const element = doc.querySelector(selector);
@@ -59,20 +59,20 @@ const list_pref = await page.$$eval(
 );
 list_pref.shift();
 
-var master = {};
-var master_flat = [];
+let master = {};
+let master_flat = [];
 
 for ( i = 0; i < list_pref.length; i++) {
     await send_selected_text(document, "#schoolprefecture", list_pref[i]);
     await wait_switched_options(document,"#schoolcity");
-    var cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
+    const cityOptionNodes = Array.from(document.querySelectorAll("select#schoolcity > option"));
     cityOptionNodes.shift();
     master[list_pref[i]] = cityOptionNodes.map(option => option.text);
 
     for ( j = 0; j < master[list_pref[i]].length; j++) {
         await send_selected_text(document, "#schoolcity", master[list_pref[i]][j]);
         await wait_switched_options(document,"#classroom");
-        var classroomOptionNodes = Array.from(document.querySelectorAll("select#classroom > option"));
+        const classroomOptionNodes = Array.from(document.querySelectorAll("select#classroom > option"));
         classroomOptionNodes.shift();
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
             master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.text });
@@ -88,8 +88,8 @@ return master_flat;
         //   var prefOptionNodes = Array.from(document.querySelectorAll("select#schoolprefecture > optgroup > option"));
         //   var list_pref = prefOptionNodes.map(option => option.text);
         //   window.list_pref = list_pref;
-          var master = {};
-          var master_flat = [];
+        //   var master = {};
+        //   var master_flat = [];
 
           for ( i = 0; i < list_pref.length; i++) {
               await send_selected_text(document, "#schoolprefecture", list_pref[i]);
