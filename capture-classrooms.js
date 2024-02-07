@@ -61,6 +61,7 @@ const list_pref = await page.$$eval(
 
 const master = {};
 let cityOptions;
+let classroomOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
 
@@ -82,17 +83,19 @@ for ( i = 0; i < list_pref.length; i++) {
     );
     master[list_pref[i]] = cityOptions.shift();
 
+    const list_city = master[list_pref[i]]
 
+    console.log(list_city)
 
-    for ( j = 0; j < master[list_pref[i]].length; j++) {
+    for ( k = 0; k < list_city.length; k++) {
 
         // 市区町村を順番に選択
-        const list_city = master[list_pref[i]]
+        
 
         await page.evaluate((list_city,j) => {
             const selectCityBox = document.getElementById("schoolcity");
             Array.from(selectCityBox.options).forEach(e => {
-                if (e.textContent === list_city[j]) {
+                if (e.textContent === list_city[k]) {
                     selectCityBox.selectedIndex = e.index;
                     selectCityBox.dispatchEvent(new Event("change", { bubbles: true }));
                 }
@@ -104,7 +107,7 @@ for ( i = 0; i < list_pref.length; i++) {
             "select#classroom > option", 
             options => options.map(option => option.textContent)
         );
-        master[list_pref[i][j]] = classroomOptions.shift();
+        master[list_pref[i][k]] = classroomOptions.shift();
 
     }
 }
