@@ -1,1 +1,0 @@
-var classroomOptions = ["クアラルンプール市"]
