@@ -60,9 +60,11 @@ const list_pref = await page.$$eval(
 );
 list_pref.shift();
 
+let master;
 let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
+
     await page.evaluate((list_pref,i) => {
         const selectBox = document.getElementById("schoolprefecture");
         Array.from(selectBox.options).forEach(e => {
@@ -76,10 +78,10 @@ for ( i = 0; i < list_pref.length; i++) {
         "select#schoolcity > option", 
         options => options.map(option => option.textContent)
     );
-    cityOptions.shift();
+    master[list_pref[i]] = cityOptions.shift();
 }
 
-return cityOptions;
+return master;
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
