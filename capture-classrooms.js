@@ -104,8 +104,8 @@ for ( i = 0; i < list_pref.length; i++) {
             options => options.map(option => option.textContent)
         );
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
-
-        console.log(classroomOptions);
+        
+        console.log(master[list_pref[i]]);
 
     }
 }
