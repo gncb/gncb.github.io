@@ -55,7 +55,7 @@ for ( i = 0; i < list_pref.length; i++) {
     }
 }
 console.log(master);
-return master;
+return JSON.stringify(master);
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
