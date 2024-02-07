@@ -85,8 +85,6 @@ for ( i = 0; i < list_pref.length; i++) {
 
     const list_city = master[list_pref[i]];
 
-    console.log(list_city);
-
     for ( j = 1; j < list_city.length; j++) {
 
         // 市区町村を順番に選択
@@ -106,6 +104,8 @@ for ( i = 0; i < list_pref.length; i++) {
             options => options.map(option => option.textContent)
         );
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
+
+        console.log(classroomOptions);
 
     }
 }
