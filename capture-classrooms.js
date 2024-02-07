@@ -105,7 +105,7 @@ for ( i = 0; i < list_pref.length; i++) {
             "select#classroom > option", 
             options => options.map(option => option.textContent)
         );
-        master[list_pref[i][j]] = classroomOptions;
+        master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
 
     }
 }
