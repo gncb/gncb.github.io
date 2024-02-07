@@ -58,9 +58,8 @@ const list_pref = await page.$$eval(
     "select#schoolprefecture > optgroup > option", 
     options => options.map(option => option.textContent)
 );
-list_pref.shift();
 
-let master;
+const master = {};
 let cityOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
