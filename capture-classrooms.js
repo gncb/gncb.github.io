@@ -61,7 +61,7 @@ const list_pref = await page.$$eval(
 
 const master = {};
 let cityOptions;
-let classroomOptions;
+// let classroomOptions;
 
 for ( i = 0; i < list_pref.length; i++) {
 
