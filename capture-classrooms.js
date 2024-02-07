@@ -67,7 +67,7 @@ for ( i = 0; i < list_pref.length; i++) {
     // 都道府県を順番に選択
     await page.evaluate((list_pref,i) => {
         const selectPrefBox = document.getElementById("schoolprefecture");
-        Array.from(selectBox.options).forEach(e => {
+        Array.from(selectPrefBox.options).forEach(e => {
             if (e.textContent === list_pref[i]) {
                 selectPrefBox.selectedIndex = e.index;
                 selectPrefBox.dispatchEvent(new Event("change", { bubbles: true }));
@@ -91,7 +91,7 @@ for ( i = 0; i < list_pref.length; i++) {
 
         await page.evaluate((list_city,j) => {
             const selectCityBox = document.getElementById("schoolcity");
-            Array.from(selectBox.options).forEach(e => {
+            Array.from(selectCityBox.options).forEach(e => {
                 if (e.textContent === list_city[j]) {
                     selectCityBox.selectedIndex = e.index;
                     selectCityBox.dispatchEvent(new Event("change", { bubbles: true }));
