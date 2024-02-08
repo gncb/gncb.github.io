@@ -49,12 +49,12 @@ for ( i = 0; i < list_pref.length; i++) {
         // 教室のオプションを取得
         classroomOptionNodes = await page.$$eval(
             "select#classroom > option", 
-            options => options.map(option => Object({id: option.value, name: option.textContent}))
+            options => options.map(option => new Object({id: option.value, name: option.textContent}))
         );
         console.log(classroomOptionNodes);
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
-            master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.textContent });
-            return { id: option.value, name: option.textContent }
+            master_flat.push(new Object({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.id, name: option.name }));
+            return new Object({ id: option.id, name: option.name })
         });
 
     }
