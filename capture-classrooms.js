@@ -49,7 +49,9 @@ for ( i = 0; i < list_pref.length; i++) {
         // 教室のオプションを取得
         classroomOptionNodes = await page.$$eval(
             "select#classroom > option", 
-            options => { options.value, options.textContent }
+            options => options.map(option => {
+                { option.value, option.textContent }
+            })
         );
         console.log(classroomOptionNodes);
         master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
