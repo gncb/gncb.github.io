@@ -1,6 +1,13 @@
 const page = await browser.newPage();
 await page.goto('https://www.jiritsu-red.jp/contact/');
 
+const gradeOptionNodes = await page.$$eval(
+    "select#gakunen > option", 
+    options => options.map(option => option.textContent)
+);
+gradeOptionNodes.shift();
+// return gradeOptionNodes
+
 const list_pref = await page.$$eval(
     "select#schoolprefecture > optgroup > option", 
     options => options.map(option => option.textContent)
@@ -59,7 +66,7 @@ for ( i = 0; i < list_pref.length; i++) {
 
     }
 }
-return master_flat;
+return gradeOptionNodes + master_flat;
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
