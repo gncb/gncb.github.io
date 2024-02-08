@@ -54,8 +54,7 @@ for ( i = 0; i < list_pref.length; i++) {
 
     }
 }
-console.log(master);
-return JSON.stringify(master);
+return master["埼玉県"];
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");

@@ -11,9 +11,9 @@ jobs:
         with:
           script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const gradeOptionNodes=await page.$$eval("select#gakunen > option",options=>options.map(option=>option.textContent));gradeOptionNodes.shift();return gradeOptionNodes
       - run: echo '${{ steps.get-grade-options.outputs.result }}'
-      - run: echo 'var gradeOptions = ${{ steps.get-grade-options.outputs.result }}' > sprix/gradeOptions.js
+      - run: echo 'var gradeOptions = ${{ steps.get-grade-options.outputs.result }}' > gradeOptions.js
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./sprix/
