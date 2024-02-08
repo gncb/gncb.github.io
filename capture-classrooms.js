@@ -66,7 +66,7 @@ for ( i = 0; i < list_pref.length; i++) {
 
     }
 }
-return  "grades:" + JSON.stringify(gradeOptionNodes) + "classrooms:" + JSON.stringify(master_flat);
+return  {"grades": JSON.stringify(gradeOptionNodes), "classrooms": JSON.stringify(master_flat)};
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
