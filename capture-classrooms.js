@@ -7,6 +7,7 @@ const list_pref = await page.$$eval(
 );
 
 const master = {};
+const master_flat = [];
 let cityOptions;
 let classroomOptions;
 
@@ -46,15 +47,18 @@ for ( i = 0; i < list_pref.length; i++) {
         },list_city,j);
 
         // 教室のオプションを取得
-        classroomOptions = await page.$$eval(
+        classroomOptionNodes = await page.$$eval(
             "select#classroom > option", 
-            options => options.map(option => option.textContent)
+            options => options
         );
-        master[list_pref[i]][master[list_pref[i]][j]] = classroomOptions;
+        master[list_pref[i]][master[list_pref[i]][j]] = classroomOptionNodes.map(option => {
+            master_flat.push({ pref: list_pref[i], city: master[list_pref[i]][j], id: option.value, name: option.textContent });
+            return { id: option.value, name: option.textContent }
+        });
 
     }
 }
-return master["埼玉県"]["さいたま市"];
+return master_flat;
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
