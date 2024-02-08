@@ -54,7 +54,7 @@ for ( i = 0; i < list_pref.length; i++) {
 
     }
 }
-return master["埼玉県"];
+return master["埼玉県"]["さいたま市"];
 
 
 // await _waitForElement(document,"select#schoolprefecture > optgroup > option");
