@@ -1,7 +1,7 @@
 name: get-classrooms
-on: [push]
-  # schedule:
-  #   - cron: '30 * * * *'
+on:
+  schedule:
+    - cron: '0 7-22 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
