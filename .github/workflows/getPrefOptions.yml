@@ -1,19 +1,19 @@
-name: get-pref-options
-on:
-  schedule:
-    - cron: '0 0 * * *'
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - id: get-pref-options
-        uses: maku693/action-puppeteer-script@v0
-        with:
-          script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const prefOptionNodes=await page.$$eval("select#schoolprefecture > optgroup > option",options=>options.map(option=>option.textContent));prefOptionNodes.shift();return prefOptionNodes
-      - run: echo '${{ steps.get-pref-options.outputs.result }}'
-      - run: echo 'var prefOptions = ${{ steps.get-pref-options.outputs.result }}' > prefOptions.js
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+# name: get-pref-options
+# on:
+#   schedule:
+#     - cron: '0 0 * * *'
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - id: get-pref-options
+#         uses: maku693/action-puppeteer-script@v0
+#         with:
+#           script: const page=await browser.newPage();await page.goto('https://www.jiritsu-red.jp/contact/');const prefOptionNodes=await page.$$eval("select#schoolprefecture > optgroup > option",options=>options.map(option=>option.textContent));prefOptionNodes.shift();return prefOptionNodes
+#       - run: echo '${{ steps.get-pref-options.outputs.result }}'
+#       - run: echo 'var prefOptions = ${{ steps.get-pref-options.outputs.result }}' > prefOptions.js
+#       - name: Deploy
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./
